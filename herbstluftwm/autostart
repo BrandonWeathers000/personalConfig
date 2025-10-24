@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-# this is a simple config for herbstluftwm
+# This is a simple config for herbstluftwm
 
 hc() {
     herbstclient "$@"
@@ -9,66 +8,50 @@ hc() {
 hc emit_hook reload
 
 xsetroot -solid '#FEFFD1'
-picom --experimental-backend --config ~/.config/picom/picom.conf -b
 
 # remove all existing keybindings
 hc keyunbind --all
 
-# keybindings
+# Keybindings
 # if you have a super key you will be much happier with Mod set to Mod4
 #Mod=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
+# Basic functions
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
-#hc keybind $Mod-Shift-c close
-hc keybind $Mod-q close
-#hc keybind $Mod-Return spawn "${TERMINAL:-xterm}" # use your $TERMINAL with xterm as fallback
-hc keybind $Mod-space spawn "xfce4-terminal"
+hc keybind $Mod-q chain , close , remove
+hc keybind $Mod-space spawn kitty
 
-# basic movement in tiling and floating mode
-# focusing clients
-hc keybind $Mod-Left  focus left
-hc keybind $Mod-Down  focus down
-hc keybind $Mod-Up    focus up
-hc keybind $Mod-Right focus right
-hc keybind $Mod-h     focus left
-hc keybind $Mod-j     focus down
-hc keybind $Mod-k     focus up
-hc keybind $Mod-l     focus right
+# Focusing clients
+hc keybind $Mod-h focus left
+hc keybind $Mod-j focus down
+hc keybind $Mod-k focus up
+hc keybind $Mod-l focus right
 
-# moving clients in tiling and floating mode
-hc keybind $Mod-Shift-Left  shift left
-hc keybind $Mod-Shift-Down  shift down
-hc keybind $Mod-Shift-Up    shift up
-hc keybind $Mod-Shift-Right shift right
-hc keybind $Mod-Shift-h     shift left
-hc keybind $Mod-Shift-j     shift down
-hc keybind $Mod-Shift-k     shift up
-hc keybind $Mod-Shift-l     shift right
+# Moving clients
+hc keybind $Mod-Shift-h chain , shift left  , focus up , shift right , focus left
+hc keybind $Mod-Shift-j chain , shift down  , focus up , shift up    , focus down
+hc keybind $Mod-Shift-k chain , shift up    , focus up , shift down  , shift down  , focus up
+hc keybind $Mod-Shift-l chain , shift right , focus up , shift left  , focus right
 
-# splitting frames
-# create an empty frame at the specified direction
-hc keybind $Mod-Mod1-h        split   left   0.5
-hc keybind $Mod-Mod1-j        split   bottom 0.5
-hc keybind $Mod-Mod1-k        split   top    0.5
-hc keybind $Mod-Mod1-l        split   right  0.5
+# Splitting frames
+hc keybind $Mod-Mod1-h  chain , split  left   0.5 , focus left
+hc keybind $Mod-Mod1-j  chain , split  bottom 0.5 , focus down
+hc keybind $Mod-Mod1-k  chain , split  top    0.5 , focus up
+hc keybind $Mod-Mod1-l  chain , split  right  0.5 , focus right
 
-# let the current frame explode into subframes
-hc keybind $Mod-Shift-space split explode
-
-# resizing frames and floating clients
+# Resizing frames
 resizestep=0.02
-hc keybind $Mod-Control-h       resize left +$resizestep
-hc keybind $Mod-Control-j       resize down +$resizestep
-hc keybind $Mod-Control-k       resize up +$resizestep
-hc keybind $Mod-Control-l       resize right +$resizestep
-hc keybind $Mod-Control-Left    resize left +$resizestep
-hc keybind $Mod-Control-Down    resize down +$resizestep
-hc keybind $Mod-Control-Up      resize up +$resizestep
-hc keybind $Mod-Control-Right   resize right +$resizestep
+hc keybind $Mod-Control-h resize left  #+$resizestep
+hc keybind $Mod-Control-j resize down  #+$resizestep
+hc keybind $Mod-Control-k resize up    #+$resizestep
+hc keybind $Mod-Control-l resize right #+$resizestep
 
-# tags
+# Let the current frame explode into subframes
+# hc keybind $Mod-Shift-space split explode
+
+# Tags
 tag_names=( {1..9} )
 tag_keys=( {1..9} 0 )
 
@@ -86,15 +69,15 @@ done
 hc keybind $Mod-period use_index +1 --skip-visible
 hc keybind $Mod-comma  use_index -1 --skip-visible
 
-# layouting
+# Layouting
 hc keybind $Mod-r remove
-hc keybind $Mod-s floating toggle
-hc keybind $Mod-f fullscreen toggle
-hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle
-hc keybind $Mod-Shift-d set_attr clients.focus.decorated toggle
-hc keybind $Mod-Shift-m set_attr clients.focus.minimized true
-hc keybind $Mod-Control-m jumpto last-minimized
-hc keybind $Mod-p pseudotile toggle
+#hc keybind $Mod-Shift-f fullscreen toggle
+hc keybind $Mod-f floating toggle
+#hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle
+#hc keybind $Mod-Shift-d set_attr clients.focus.decorated toggle
+#hc keybind $Mod-Shift-m set_attr clients.focus.minimized true
+#hc keybind $Mod-Control-m jumpto last-minimized
+# hc keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
@@ -103,51 +86,50 @@ hc keybind $Mod-p pseudotile toggle
 #                     . cycle_layout +1 vertical horizontal max vertical grid    \
 #               , cycle_layout +1
 
-# mouse
+# Mouse
 hc mouseunbind --all
 hc mousebind $Mod-Button1 move
 hc mousebind $Mod-Button2 zoom
 hc mousebind $Mod-Button3 resize
 
-# focus
-hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-Tab         cycle_all +1
-hc keybind $Mod-Shift-Tab   cycle_all -1
-hc keybind $Mod-c cycle
-hc keybind $Mod-i jumpto urgent
+# Focus
+# hc keybind $Mod-BackSpace   cycle_monitor
+# hc keybind $Mod-Tab         cycle_all +1
+# hc keybind $Mod-Shift-Tab   cycle_all -1
+# hc keybind $Mod-c cycle
+# hc keybind $Mod-i jumpto urgent
 
-# theme
+# Theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#87CEEB'
-hc set frame_border_normal_color '#FFC0CB'
-hc set frame_border '#FFC0CB'
-hc set frame_bg_normal_color '#FFC0CB'
-hc set frame_bg_active_color '#87CEEB'
-hc set frame_border_width 2
+hc set frame_border_normal_color '#2B539288'
+hc set frame_border '#2B539288'
+hc set frame_bg_normal_color '#2B539288'
+hc attr theme.normal.color '#2B539288'
+hc set frame_border_active_color '#86BBDC88'
+hc set frame_bg_active_color '#86BBDC88'
+hc set frame_border_width 3
 hc set show_frame_decorations 'focused_if_multiple'
 hc set frame_bg_transparent on
 hc set frame_transparent_width 2
-hc set frame_gap 30
+hc set frame_gap 20
 
 hc attr theme.title_height 0
 hc attr theme.title_when never
 hc attr theme.title_font '3270 Nerd Font Propo-Condensed:pixelsize=12'  # example using Xft
 # hc attr theme.title_font '-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
 hc attr theme.title_depth 0  # space below the title's baseline
-hc attr theme.active.color '#FFFFFF'
+hc attr theme.active.color '#8FCFAFAA'
 hc attr theme.title_color '#FFFFFF'
-hc attr theme.normal.color '#323232dd'
 hc attr theme.urgent.color '#7811A1dd'
 hc attr theme.tab_color '#1F1F1Fdd'
 hc attr theme.active.tab_color '#2B4F0Add'
-hc attr theme.active.tab_outer_color '#6C8257dd'
-hc attr theme.active.tab_title_color '#ababab'
+hc attr theme.active.tab_outer_color '#6C8257' hc attr theme.active.tab_title_color '#ababab'
 hc attr theme.normal.title_color '#898989'
 hc attr theme.inner_width 0
 hc attr theme.inner_color black
 hc attr theme.border_width 0
-hc attr theme.floating.border_width 0
+hc attr theme.floating.border_width 5
 hc attr theme.floating.outer_width 0
 hc attr theme.floating.outer_color black
 hc attr theme.active.inner_color '#789161'
@@ -158,27 +140,29 @@ for state in active urgent normal ; do
     hc substitute C theme.${state}.inner_color \
         attr theme.${state}.outer_color C
 done
-hc attr theme.tiling.outer_width 1
+hc attr theme.tiling.outer_width 0
 hc attr theme.background_color '#141414'
 
+# Window gaps and padding
 hc set window_gap 2
 hc set frame_padding 0
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings off
 hc set mouse_recenter_gap 0
 
-# rules
+# Rules
 hc unrule -F
 #hc rule class=XTerm tag=3 # move all xterms to tag 3
 hc rule focus=on # normally focus new clients
-hc rule floatplacement=smart
+#hc rule floatplacement=center
+#hc rule floatplacement=smart
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
-hc rule fixedsize floating=on
+hc rule fixedsize floating=off
 
 hc set tree_style '╾│ ├└╼─┐'
 
@@ -190,29 +174,27 @@ hc unlock
 # or simply:
 hc detect_monitors
 
-#### CUSTOM KEYBINDS ###
-hc keybind Shift-Control-f spawn rofi -show drun
-hc keybind Control-Mod1-Delete spawn xfce4-terminal -x btop
-hc keybind Print spawn xfce4-screenshooter
-hc keybind XF86Calculator spawn qalculate
-hc keybind $Mod-x spawn betterlockscreen -l blur --time-format %I:%M
-hc keybind $Mod-e spawn doom run
-
+#######################
+### CUSTOM KEYBINDS ###
+#######################
 hc keybind XF86AudioRaiseVolume spawn pactl set-sink-volume @DEFAULT_SINK@ +5%
 hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume @DEFAULT_SINK@ -5%
-hc keybind XF86AudioMute spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-# find the panel
-[ -x "$panel" ] || panel=~/.config/polybar/polybar.sh
-for monitor in $(hc list_monitors | cut -d: -f1) ; do
-    # start it on each monitor
-    "$panel" "$monitor" &
-done
+hc keybind XF86AudioMute        spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
+hc keybind Shift-Control-f      spawn dmenu_run -b -i -l 4 -nb "#2B5392" -nf "#86BBDC" -sb "#86BBDC" -sf "#2B5392"
+hc keybind Control-Mod1-Delete  spawn terminology -e btop                                                          
+hc keybind Mod1-q               spawn qutebrowser -T --set content.private_browsing true -C ~/.config/qutebrowser/config.py
+hc keybind Mod1-e               spawn emacsclient -c
+hc keybind Mod1-t               spawn emacsclient -c ~/Desktop/dailyTasks.org
+hc keybind XF86Calculator       spawn emacsclient -c -e "(full-calc)"
+hc keybind Mod1-c               spawn emacsclient -c -e "(=calendar)"
+hc keybind Mod1-m               spawn emacsclient -c -e "(lunar-phases)"
+hc keybind Print                spawn gnome-screenshot -a
 
 ### CUSTOM AUTO-STARTUP PROGRAMS ###
-xfce4-power-manager
-~/.config/polybar/launch.sh
-#feh --bg-max /usr/share/endeavouros/backgrounds/eos_wallpapers_community/stars.png
-feh --bg-scale /home/brandonw/Pictures/walls/'gisWallTwo.jpg'
-
-xrandr --output HDMI-1 --mode 1920x1080 --primary --rotate normal --output eDP-1 --mode 1920x1080 --rotate normal --right-of HDMI-1
+feh --bg-fill /home/brandon/Pictures/blueAbstract.png
+# emacs --daemon &
+xrandr --output HDMI-1 --mode 1920x1080 --primary --rotate normal --output VGA-1 --mode 1920x1080 --rotate normal --right-of HDMI-1
+# xcompmgr &
+#conky -c ~/.config/conky/conky.conf -x 26 -y 50
+#own_window_colour = '#2B5392',
+# ~/.config/lemonbar/lemonbarInit.sh | lemonbar -p -B "#88000000" -F "#86BBDC" -f '-*-fixed-medium-r-*-*-20-*-*-*-*-*-*-*' -g 1880x20+20+8 -o "HDMI-1" 
