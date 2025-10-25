@@ -100,41 +100,42 @@ hc mousebind $Mod-Button3 resize
 # hc keybind $Mod-i jumpto urgent
 
 # Theme
-hc attr theme.tiling.reset 1
-hc attr theme.floating.reset 1
-hc set frame_border_normal_color '#2B539288'
-hc set frame_border '#2B539288'
-hc set frame_bg_normal_color '#2B539288'
-hc attr theme.normal.color '#2B539288'
-hc set frame_border_active_color '#86BBDC88'
-hc set frame_bg_active_color '#86BBDC88'
-hc set frame_border_width 3
-hc set show_frame_decorations 'focused_if_multiple'
-hc set frame_bg_transparent on
-hc set frame_transparent_width 2
-hc set frame_gap 20
+hc attr theme.tiling.reset        1
+hc attr theme.floating.reset      1
+hc attr theme.normal.color        '#8000FF'
+hc set  frame_border_normal_color '#8000FF'
+hc set  frame_border              '#8000FF'
+hc set  frame_bg_normal_color     '#8000FF'
+hc set  frame_border_active_color '#FF80FF'
+hc set  frame_bg_active_color     '#FF80FF'
+hc set  frame_border_width        7
+hc set  show_frame_decorations    'focused_if_multiple'
+hc set  frame_bg_transparent      on
+hc set  frame_transparent_width   2
+hc set  frame_gap                 35
 
-hc attr theme.title_height 0
-hc attr theme.title_when never
-hc attr theme.title_font '3270 Nerd Font Propo-Condensed:pixelsize=12'  # example using Xft
-# hc attr theme.title_font '-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
-hc attr theme.title_depth 0  # space below the title's baseline
-hc attr theme.active.color '#8FCFAFAA'
-hc attr theme.title_color '#FFFFFF'
-hc attr theme.urgent.color '#7811A1dd'
-hc attr theme.tab_color '#1F1F1Fdd'
-hc attr theme.active.tab_color '#2B4F0Add'
-hc attr theme.active.tab_outer_color '#6C8257' hc attr theme.active.tab_title_color '#ababab'
-hc attr theme.normal.title_color '#898989'
-hc attr theme.inner_width 0
-hc attr theme.inner_color black
-hc attr theme.border_width 0
-hc attr theme.floating.border_width 5
-hc attr theme.floating.outer_width 0
-hc attr theme.floating.outer_color black
-hc attr theme.active.inner_color '#789161'
-hc attr theme.urgent.inner_color '#9A65B0'
-hc attr theme.normal.inner_color '#000000'
+hc attr theme.title_height           0
+hc attr theme.title_when             never
+hc attr theme.title_font             '3270 Nerd Font Propo-Condensed:pixelsize=12'
+hc attr theme.title_depth            0  # space below the title's baseline
+hc attr theme.active.color           '#8FCFAFAA'
+hc attr theme.title_color            '#FFFFFF'
+hc attr theme.urgent.color           '#7811A1dd'
+hc attr theme.tab_color              '#1F1F1Fdd'
+hc attr theme.active.tab_color       '#2B4F0Add'
+hc attr theme.active.tab_outer_color '#6C8257'
+hc attr theme.active.tab_title_color '#ababab'
+hc attr theme.normal.title_color     '#898989'
+hc attr theme.inner_width            0
+hc attr theme.inner_color            black
+hc attr theme.border_width           0
+hc attr theme.floating.border_width  5
+hc attr theme.floating.outer_width   0
+hc attr theme.floating.outer_color   black
+hc attr theme.active.inner_color     '#789161'
+hc attr theme.urgent.inner_color     '#9A65B0'
+hc attr theme.normal.inner_color     '#000000'
+
 # copy inner color to outer_color
 for state in active urgent normal ; do
     hc substitute C theme.${state}.inner_color \
@@ -144,11 +145,11 @@ hc attr theme.tiling.outer_width 0
 hc attr theme.background_color '#141414'
 
 # Window gaps and padding
-hc set window_gap 2
-hc set frame_padding 0
+hc set window_gap                0
+hc set frame_padding             0
 hc set smart_window_surroundings off
-hc set smart_frame_surroundings off
-hc set mouse_recenter_gap 0
+hc set smart_frame_surroundings  off
+hc set mouse_recenter_gap        0
 
 # Rules
 hc unrule -F
@@ -177,24 +178,23 @@ hc detect_monitors
 #######################
 ### CUSTOM KEYBINDS ###
 #######################
-hc keybind XF86AudioRaiseVolume spawn pactl set-sink-volume @DEFAULT_SINK@ +5%
-hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume @DEFAULT_SINK@ -5%
-hc keybind XF86AudioMute        spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
-hc keybind Shift-Control-f      spawn dmenu_run -b -i -l 4 -nb "#2B5392" -nf "#86BBDC" -sb "#86BBDC" -sf "#2B5392"
-hc keybind Control-Mod1-Delete  spawn terminology -e btop                                                          
-hc keybind Mod1-q               spawn qutebrowser -T --set content.private_browsing true -C ~/.config/qutebrowser/config.py
-hc keybind Mod1-e               spawn emacsclient -c
-hc keybind Mod1-t               spawn emacsclient -c ~/Desktop/dailyTasks.org
-hc keybind XF86Calculator       spawn emacsclient -c -e "(full-calc)"
-hc keybind Mod1-c               spawn emacsclient -c -e "(=calendar)"
-hc keybind Mod1-m               spawn emacsclient -c -e "(lunar-phases)"
-hc keybind Print                spawn gnome-screenshot -a
+hc keybind $Mod-Shift-Control-h  spawn kitty bash -c "cat ~/.config/herbstluftwm/autostart | less"
+hc keybind $Mod-s                spawn kitty bash -c "df -h | less"
+hc keybind XF86AudioRaiseVolume  spawn pactl set-sink-volume @DEFAULT_SINK@ +5%
+hc keybind XF86AudioLowerVolume  spawn pactl set-sink-volume @DEFAULT_SINK@ -5%
+hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
+hc keybind Shift-Control-f       spawn rofi -show drun
+hc keybind Control-Mod1-Delete   spawn kitty btop
+hc keybind Mod1-e                spawn emacsclient -c -e "(ibuffer)"
+hc keybind Mod1-t                spawn emacsclient -c ~/Desktop/notes/dailyNote.org
+hc keybind XF86Calculator        spawn emacsclient -c -e "(full-calc)"
+hc keybind Mod1-c                spawn emacsclient -c -e "(=calendar)"
+hc keybind Mod1-m                spawn emacsclient -c -e "(lunar-phases)"
+hc keybind Print                 spawn xfce4-screenshooter -r
 
 ### CUSTOM AUTO-STARTUP PROGRAMS ###
-feh --bg-fill /home/brandon/Pictures/blueAbstract.png
-# emacs --daemon &
-xrandr --output HDMI-1 --mode 1920x1080 --primary --rotate normal --output VGA-1 --mode 1920x1080 --rotate normal --right-of HDMI-1
-# xcompmgr &
-#conky -c ~/.config/conky/conky.conf -x 26 -y 50
-#own_window_colour = '#2B5392',
-# ~/.config/lemonbar/lemonbarInit.sh | lemonbar -p -B "#88000000" -F "#86BBDC" -f '-*-fixed-medium-r-*-*-20-*-*-*-*-*-*-*' -g 1880x20+20+8 -o "HDMI-1" 
+feh --bg-fill ~/Pictures/walls/purpleSpirals.png
+xfce4-power-manager
+~/.config/polybar/launch.sh
+emacs --daemon &
+compfy --config ~/.config/compfy/compfy.conf &
