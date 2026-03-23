@@ -1,6 +1,16 @@
-# personalConfig
-- This is a repo that holds all my personal configuration files (dot files) for my personal laptop.
-- It will mainly store variables I tend to change frequently.
-  - (Doom) Emacs
-  - Window manager (curently Herbstluftwm)
-  - Window compositor (currently Picom)
+# Personal Configuration Files
+This is a repo that holds all my personal configuration files (dot files) for my personal laptop.
+## Currently In Use (Built for Arch + Wayland)
+|----------------------|--------------|
+| Application type     | Daily driver |
+|----------------------|--------------|
+| Editor               | (Doom) Emacs |
+| Window manager       | Sway FX      |
+| Web browser          | qutebrowser  |
+| Terminal             | foot         |
+| Completion framework | Wofi         |
+|----------------------|--------------|
+## Legacy Configs
+- Window managers
+    - bspwm
+    - herbstluftwm
