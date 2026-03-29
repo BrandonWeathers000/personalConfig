@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-outrun-electric)
+;; (setq doom-theme 'doom-outrun-electric)
 
 ;; Tron theme
 ;; (use-package tron-legacy-theme
@@ -46,15 +46,18 @@
 ;;   (load-theme 'tron-legacy t))
 
 ;; Catppuccin theme
-(load-theme 'catppuccin :no-confirm)
+;; (load-theme 'catppuccin :no-confirm)
 
 ;; frappe, latte, macchiato, or mocha
-(setq catppuccin-flavor 'mocha)
-(catppuccin-reload)
+;; (setq catppuccin-flavor 'mocha)
+;; (catppuccin-reload)
 
 ;; Only for the currently active flavor
-(catppuccin-set-color 'base "#000000") ;; change base to #000000 for the currently active flavor
-(catppuccin-reload)
+;; (catppuccin-set-color 'base "#000000") ;; change base to #000000 for the currently active flavor
+;; (catppuccin-reload)
+
+(add-to-list 'custom-theme-load-path "/home/brandon/.config/doom/themes/" t)
+(load-theme 'BWeathers t)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -148,6 +151,9 @@
 (setq doom-modeline-buffer-state-icon t)
 (size-indication-mode -1)
 
+;; Turn off show paren mode
+(show-paren-mode -1)
+
 ;; Keybinds
 (with-eval-after-load 'erc
   (define-key erc-mode-map (kbd "RET") 'nil))
@@ -156,3 +162,22 @@
 
 (map! :leader
       "k" #'evil-insert-digraph)
+
+(defun print-an-arrow ()
+  "This function prints out the arrow (→) digraph"
+  (interactive)
+  (insert "→"))
+
+(map! :leader
+      "@" #'print-an-arrow)
+
+(defun java-SOP ()
+  "This function prints System.out.println(); in the buffer"
+  (interactive)
+  (insert "System.out.println();"))
+
+(map! :leader
+      "S O P" #'nil)
+
+(map! :leader
+      "S O P" #'java-SOP)
