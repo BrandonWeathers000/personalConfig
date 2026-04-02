@@ -1,39 +1,10 @@
-;;; BWeathers-theme.el --- Theme
-
-;; Copyright (C) 2026 , BrandonWeathers
-
-;; Author: BrandonWeathers
-;; Version: 0.1
-;; Package-Requires: ((emacs "24.1"))
-;; Created with ThemeCreator, https://github.com/mswift42/themecreator.
-
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-;; This file is not part of Emacs.
-
-;;; Commentary:
-;;; BWeathers theme created by BrandonWeathers in 2026
-
-;;; Code:
-
 (deftheme BWeathers)
 (let ((class '((class color) (min-colors 89)))
-      ;; Colors definitions
+      ;; Color definitions
       (fg1       "#FFFFFF")
       (fg2       "#FFFFFF")
       (fg3       "#FFFFFF")
-      (fg4       "#FFFFFF")
+      (fg4       "#6EE2FF")
       (fg6       "#5D5D5D")
       (bg1       "#000000")
       (bg2       "#000000")
@@ -90,7 +61,7 @@
    `(org-level-2 ((,class (:bold t :foreground ,fg1))))
    `(org-level-3 ((,class (:bold t :foreground ,fg1))))
    `(org-level-4 ((,class (:bold t :foreground ,fg1))))
-   `(org-date ((,class (:underline t :foreground ,var) )))
+   `(org-date ((,class (:underline t :foreground ,fg1))))
    `(org-footnote  ((,class (:underline t :foreground ,fg1))))
    `(org-link ((,class (:underline t :foreground ,type ))))
    `(org-special-keyword ((,class (:foreground ,func))))
@@ -246,21 +217,6 @@
    `(jde-jave-font-lock-protected-face ((t (:foreground ,keyword))))
    `(jde-java-font-lock-number-face ((t (:foreground ,var))))
    `(yas-field-highlight-face ((t (:background ,selection)))))
-   ;; Legacy
-   (if (< emacs-major-version 22)
-       (custom-theme-set-faces
-        'BWeathers
-        `(show-paren-match-face ((,class (:background ,warning))))) ;; obsoleted in 22.1, removed 2016
-     (custom-theme-set-faces
-      'BWeathers
-      `(show-paren-match ((,class (:foreground ,bg1 :background ,str))))
-      `(show-paren-mismatch ((,class (:foreground ,bg1 :background ,warning))))))
-   ;; emacs >= 26.1
-   (when (>= emacs-major-version 26)
-     (custom-theme-set-faces
-      'BWeathers
-      `(line-number ((t (:inherit fringe))))
-      `(line-number-current-line ((t (:inherit fringe :foreground ,fg6 :weight bold))))))
 
   ;; emacs >= 27.1
   (when (>= emacs-major-version 27)
@@ -271,11 +227,12 @@
      `(tab-line-tab-inactive ((,class (:background ,bg2 :foreground ,fg4))))
      `(tab-line-tab-current  ((,class (:background ,bg1 :foreground ,fg1))))
      `(tab-line-highlight    ((,class (:background ,bg1 :foreground ,fg2))))))
- (when (>= emacs-major-version 28)
-    (custom-theme-set-faces
-     'BWeathers
-     `(line-number ((t (:inherit fringe))))
-     `(line-number-current-line ((t (:inherit fringe :foreground ,fg6 :weight bold))))))
+  (when (>= emacs-major-version 28)
+     (custom-theme-set-faces
+      'BWeathers
+      `(line-number ((t (:inherit fringe))))
+      `(line-number-current-line ((t (:inherit fringe :foreground ,fg6 :weight bold))))))
+  
 ;; emacs >= 27.1
 (when (>= emacs-major-version 27)
   (custom-theme-set-faces
