@@ -57,7 +57,23 @@
 ;; (catppuccin-reload)
 
 (add-to-list 'custom-theme-load-path "/home/brandon/.config/doom/themes/" t)
+
+(setq doom-modeline-buffer-file-name-style 'file-name)
+
+(set-face-attribute 'mode-line-buffer-id nil
+                    :foreground "#6EE2FF")
+
 (load-theme 'BWeathers t)
+
+(after! doom-modeline
+  (doom-modeline-def-modeline 'my-simple-line
+    '(bar workspace-name window-number modals matches buffer-info)
+    '(misc-info minor-modes input-method buffer-position))
+
+  (defun my/set-simple-modeline ()
+    (doom-modeline-set-modeline 'my-simple-line 'default))
+
+  (add-hook 'doom-modeline-mode-hook #'my/set-simple-modeline))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
