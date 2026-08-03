@@ -4,11 +4,14 @@ This is a repo that holds all my personal configuration files (dot files) for my
 | Application type     | Daily driver |
 |----------------------|--------------|
 | Editor               | (Doom) Emacs |
-| Window manager       | Sway FX      |
+| Window manager       | river        |
 | Web browser          | qutebrowser  |
 | Terminal             | foot         |
-| Completion framework | Wofi         |
+| Completion framework | Fuzzel       |
 ## Legacy Configs
 - Window managers
+    - Sway FX
     - bspwm
     - herbstluftwm
+- Completion framework 
+    - Wofi
