@@ -15,7 +15,7 @@ wallpaperChange(){
     swaybg -m fill -i $1
 }
 
-waybarColors(){
+waybarColorChanger(){
     killall waybar
 
     newColor=$1
@@ -29,21 +29,45 @@ waybarColors(){
     waybar & 
 }
 
+fuzzelColorChanger(){
+    newColor=$1
+    cssFile=~/.config/fuzzel/fuzzel.ini
+
+    oldColor=$(sed -n '57p' $cssFile | awk '{print $2}')
+    echo "The old color is: $oldColor"
+
+    newColor+="FF"
+    sed -i "s/$oldColor/$newColor/g" $cssFile
+}
+
+cavaColorChanger (){
+    newColor=$1
+    cssFile=~/.config/cava/themes/tron
+
+    oldColor=$(sed -n '3p' $cssFile | awk '{print $2}')
+    oldColor=${oldColor:2:6}
+    echo "The CAVA old color is: $oldColor"
+
+    sed -i "s/$oldColor/$newColor/g" $cssFile
+}
+
 ###################
 ### ENTRY POINT ###
 ###################
 
 # Getting wallpaper
 cd ~/Images/walls/
-wallpaper=$(ls | fuzzel --dmenu)
+wallpaper=$(ls | fuzzel -p "Wallpaper: " --dmenu)
 
 # Finding colors
 mapfile -t colors < <(magick $wallpaper -colors 2 -unique-colors txt:- | awk 'NR > 1 { print $3 }' | sed 's/#//g')
 colorOne=${colors[0]}
 colorTwo=${colors[1]}
-
 colorOneBright=$(brightnessValue $colorOne)
 colorTwoBright=$(brightnessValue $colorTwo)
+
+echo "Color ONE is: $colorOne and is $colorOneBright bright"
+echo "Color TWO is: $colorTwo and is $colorTwoBright bright"
 
 if awk "BEGIN { exit !($colorTwoBright > $colorOneBright) }"; then
     temp=$colorOne
@@ -73,8 +97,8 @@ echo "Color TWO is: $colorTwo and is $colorTwoBright bright"
 riverctl border-color-focused "0x$colorOne"
 riverctl border-color-unfocused "0x$colorTwo"
 
-# Changing waybar colors
-waybarColors $colorOne
+waybarColorChanger $colorOne
+fuzzelColorChanger $colorOne
+cavaColorChanger $colorOne
 
-# Changing wallpaper
 wallpaperChange $wallpaper
