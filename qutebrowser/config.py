@@ -5,7 +5,7 @@ c.colors.webpage.darkmode.enabled = True
 
 # Bottom status bar shows only while in a mode
 c.statusbar.show = 'in-mode'
-c.tabs.show = 'multiple'
+c.tabs.show = 'always'
 
 # Command prompt colors
 c.colors.completion.item.selected.bg = '#6EE2FF'
@@ -21,9 +21,13 @@ c.colors.completion.even.bg = '#000000'
 c.colors.completion.odd.bg = '#000000'
 
 c.colors.completion.category.bg = '#000000'
-c.colors.completion.category.fg = '#FFFFFF' # 'Commands', 'Quickmarks', or 'History'
+c.colors.completion.category.fg = '#6EE2FF' # 'Commands', 'Quickmarks', or 'History'
 c.colors.completion.category.border.top= '#6EE2FF'
 c.colors.completion.category.border.bottom = '#6EE2FF'
+
+# Command promp scrool bar
+c.colors.completion.scrollbar.fg = '#6EE2FF'
+c.colors.completion.scrollbar.bg = '#000000'
 
 # Tab colors
 c.colors.tabs.even.bg = '#555555'
@@ -44,8 +48,8 @@ c.tabs.favicons.show = 'pinned'
 c.url.default_page = '~/Desktop/GeneralProgramming/PersonalHomepage/main.html'
 c.url.start_pages = '~/Desktop/GeneralProgramming/PersonalHomepage/main.html' 
 
-# Deafult font TerminessNerdFontMono-Regular
-efault_family = 'Terminess Nerd Font'
+# Default font TerminessNerdFontMono-Regular
+# default_family = 'Terminess Nerd Font'
 c.fonts.default_size = '12pt'
 c.fonts.messages.error = '12pt Terminess Nerd'
 c.fonts.messages.info = '12pt Terminess Nerd Font'
@@ -65,5 +69,5 @@ c.fonts.messages.info = 'italic 12pt Terminess Nerd Font'
 c.fonts.messages.error = 'italic 12pt Terminess Nerd Font'
 c.fonts.messages.warning = 'italic 12pt Terminess Nerd Font'
 
-# Scoll bar
-c.scrolling.smooth = True
+# Scolling
+c.scrolling.smooth = False

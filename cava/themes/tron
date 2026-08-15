@@ -1,0 +1,6 @@
+[color]
+gradient = 1
+gradient_color_1= '#D2C4ED'
+gradient_color_2= '#D2C4ED'
+
+blend_direction=up
