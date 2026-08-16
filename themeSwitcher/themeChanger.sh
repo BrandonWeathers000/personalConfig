@@ -51,6 +51,11 @@ cavaColorChanger (){
     sed -i "s/$oldColor/$newColor/g" $cssFile
 }
 
+changeDefaultWallpaper() {
+    sed -i '/swaybg/d' ~/.config/river/init
+    echo "swaybg -m fill -i ~/Images/walls/$wallpaper &" >> ~/.config/river/init
+}
+
 ###################
 ### ENTRY POINT ###
 ###################
@@ -97,8 +102,16 @@ echo "Color TWO is: $colorTwo and is $colorTwoBright bright"
 riverctl border-color-focused "0x$colorOne"
 riverctl border-color-unfocused "0x$colorTwo"
 
+sed -i '/border-color-focused/d' ~/.config/river/init
+echo "riverctl border-color-focused 0x$colorOne" >> ~/.config/river/init
+
+sed -i '/border-color-unfocused/d' ~/.config/river/init
+echo "riverctl border-color-unfocused 0x$colorTwo" >> ~/.config/river/init
+
+# Other functions
 waybarColorChanger $colorOne
 fuzzelColorChanger $colorOne
 cavaColorChanger $colorOne
+changeDefaultWallpaper $wallpaper
 
-wallpaperChange $wallpaper
+wallpaperChange $wallpaper # Should be last function as it's a deamon 
